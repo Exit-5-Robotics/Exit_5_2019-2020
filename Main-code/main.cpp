@@ -25,6 +25,8 @@
 #include "vision.h"
 #define RED 1
 #define BLUE -1
+#define RANGLE -1
+#define BANGLE 0
 
 using namespace vex;
 
@@ -68,13 +70,13 @@ void autonomous( void ) {
 void usercontrol( void ) {
   //vision
   Controller1.ButtonY.released(centerBlock);
+  positionTracker(RANGLE);
 }
 
 int main() {
   Competition.autonomous(autonomous);
   Competition.drivercontrol(usercontrol);
   pre_auton();
-  printf("bruh");
   while (true) {
     wait(100, msec);
   }
@@ -117,6 +119,23 @@ void back ( int side ) {
     RightDrive.spinFor(directionType::rev, 20, rotationUnits::deg);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 void centerBlock( void ) {
   int count = 0;
