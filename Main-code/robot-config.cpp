@@ -98,8 +98,13 @@ int rc_auto_loop_callback_Controller1() {
       turnyturnNeedsToBeStopped_Controller1 = true;
     }
     if (turnyturnNeedsToBeStopped_Controller1) {
-      LeftDrive.setVelocity(drivetrainPerspective, pct);
-      RightDrive.setVelocity(drivetrainPerspective, pct);
+      if (DriveSpeed) {
+        LeftDrive.setVelocity(drivetrainPerspective, pct);
+        RightDrive.setVelocity(drivetrainPerspective, pct);
+      } else {
+        LeftDrive.setVelocity(drivetrainPerspective/5, pct);
+        RightDrive.setVelocity(drivetrainPerspective/5, pct);
+      }
       LeftDrive.spin(forward);
       RightDrive.spin(reverse);
     }
@@ -166,7 +171,7 @@ int rc_auto_loop_callback_Controller1() {
     int hhh = RightDrive.position(deg);
     int lao = LeftDrive.current() - LeftDrive.efficiency();
     Brain.Screen.setCursor(5, 5);
-    Brain.Screen.print("%d %d %d %d", hh, hhh, DriveSpeed, lao);
+    // Brain.Screen.print("%d %d %d %d", hh, hhh, DriveSpeed, lao);
   }
   return 0;
 }
