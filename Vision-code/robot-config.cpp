@@ -8,19 +8,18 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor leftWheel = motor(PORT12, ratio18_1, true);
-motor rightWheel = motor(PORT20, ratio18_1, false);
+motor Motor1 = motor(PORT1, ratio18_1, false);
+motor Motor2 = motor(PORT2, ratio18_1, false);
 /*vex-vision-config:begin*/
-signature Vision__SIG_ORANGE = signature (1, 4119, 8569, 6344, -3283, -2355, -2819, 1.4, 0);
-signature Vision__SIG_2 = signature (2, 0, 0, 0, 0, 0, 0, 2.5, 0);
-signature Vision__SIG_3 = signature (3, 0, 0, 0, 0, 0, 0, 2.5, 0);
-signature Vision__SIG_4 = signature (4, 0, 0, 0, 0, 0, 0, 2.5, 0);
-signature Vision__SIG_5 = signature (5, 0, 0, 0, 0, 0, 0, 2.5, 0);
-signature Vision__SIG_6 = signature (6, 0, 0, 0, 0, 0, 0, 2.5, 0);
-signature Vision__SIG_7 = signature (7, 0, 0, 0, 0, 0, 0, 2.5, 0);
-vision Vision = vision (PORT14, 50, Vision__SIG_ORANGE, Vision__SIG_2, Vision__SIG_3, Vision__SIG_4, Vision__SIG_5, Vision__SIG_6, Vision__SIG_7);
+signature Vision3__SIG_PURPLE = signature (1, 337, 1687, 1012, 3537, 5961, 4750, 2.5, 0);
+signature Vision3__SIG_ORANGE = signature (2, 7039, 9083, 8060, -3041, -2081, -2562, 2.3, 0);
+signature Vision3__SIG_GREEN = signature (3, -4111, -2801, -3456, -2377, -983, -1680, 2.5, 0);
+signature Vision3__SIG_4 = signature (4, 0, 0, 0, 0, 0, 0, 2.5, 0);
+signature Vision3__SIG_5 = signature (5, 0, 0, 0, 0, 0, 0, 2.5, 0);
+signature Vision3__SIG_6 = signature (6, 0, 0, 0, 0, 0, 0, 2.5, 0);
+signature Vision3__SIG_7 = signature (7, 0, 0, 0, 0, 0, 0, 2.5, 0);
+vision Vision3 = vision (PORT3, 50, Vision3__SIG_PURPLE, Vision3__SIG_ORANGE, Vision3__SIG_GREEN, Vision3__SIG_4, Vision3__SIG_5, Vision3__SIG_6, Vision3__SIG_7);
 /*vex-vision-config:end*/
-motor MiddleWheel = motor(PORT13, ratio18_1, false);
 
 // VEXcode generated functions
 

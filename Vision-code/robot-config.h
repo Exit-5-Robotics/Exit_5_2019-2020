@@ -5,17 +5,16 @@ extern brain Brain;
 using signature = vision::signature;
 
 // VEXcode devices
-extern motor leftWheel;
-extern motor rightWheel;
-extern signature Vision__SIG_ORANGE;
-extern signature Vision__SIG_2;
-extern signature Vision__SIG_3;
-extern signature Vision__SIG_4;
-extern signature Vision__SIG_5;
-extern signature Vision__SIG_6;
-extern signature Vision__SIG_7;
-extern vision Vision;
-extern motor MiddleWheel;
+extern motor Motor1;
+extern motor Motor2;
+extern signature Vision3__SIG_PURPLE;
+extern signature Vision3__SIG_ORANGE;
+extern signature Vision3__SIG_GREEN;
+extern signature Vision3__SIG_4;
+extern signature Vision3__SIG_5;
+extern signature Vision3__SIG_6;
+extern signature Vision3__SIG_7;
+extern vision Vision3;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.
