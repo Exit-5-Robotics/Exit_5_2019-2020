@@ -8,10 +8,10 @@ using code = vision::code;
 brain  Brain;
 
 // VEXcode device constructors
-motor Motor1 = motor(PORT1, ratio18_1, false);
-motor Motor2 = motor(PORT2, ratio18_1, false);
+motor motorLeft = motor(PORT1, ratio18_1, false);
+motor motorRight = motor(PORT2, ratio18_1, false);
 /*vex-vision-config:begin*/
-signature Vision3__SIG_PURPLE = signature (1, 337, 1687, 1012, 3537, 5961, 4750, 2.5, 0);
+signature Vision3__SIG_PURPLE = signature (1, 865, 2625, 1746, 3009, 7681, 5346, 0, 0);
 signature Vision3__SIG_ORANGE = signature (2, 7039, 9083, 8060, -3041, -2081, -2562, 2.3, 0);
 signature Vision3__SIG_GREEN = signature (3, -4111, -2801, -3456, -2377, -983, -1680, 2.5, 0);
 signature Vision3__SIG_4 = signature (4, 0, 0, 0, 0, 0, 0, 2.5, 0);
