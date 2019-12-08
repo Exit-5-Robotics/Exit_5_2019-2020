@@ -1,29 +1,23 @@
 #include "vex.h"
-#define MAX_COORDINATE 3600
 
 double pi = acos(-1);
-
-int *positionTracker( double x, double y, double z ) {
-  double driveL = LeftDrive.position(deg);
-  double driveR = RightDrive.position(deg);
-  double avg = (driveL + driveR)/2/600; // each block is about 600 degrees of turning a motor
-  double currentX = x + avg*cos(z);
-  double currentY = y + avg*sin(z);
-  // probably separate
-  if ((LeftDrive.current() - LeftDrive.efficiency()) > 0) { // then it's probably against a wall
-    if (z < 45 || z > 315) {
-      y = 0;
-    } else if (z > 45 && z < 135) {
-      x = 0;
-    } else if (z > 135 && z < 225) {
-      y = MAX_COORDINATE;
-    } else if (z > 225 && z < 315) {
-      x = MAX_COORDINATE;
-    }
+int positionTracker(double zWithoutPi ) {
+  Controller1.Screen.clearScreen();
+  double x, y, z;
+  int l, r, distanceMoved;
+  while (true) {
+  l = LeftDrive.position(deg);
+  r = RightDrive.position(deg);
+  distanceMoved = (l + r)/2;
+  z = zWithoutPi*pi + fmod((((double)l - (double)r) / 2), 1080)*pi / 540; // avg of l and r signed for position, mod 1080 for full rotation, converted to rad
+  x = distanceMoved*cos(z);
+  y = distanceMoved*sin(z);
+  Controller1.Screen.setCursor(0, 0);
+  Controller1.Screen.print("xDeg: %.0f  yDeg: %.0f", x, y);
+  Controller1.Screen.newLine();
+  Controller1.Screen.print("angle: %.3f", z/pi);
+  Controller1.Screen.newLine();
+  Controller1.Screen.print("%f", LeftDrive.efficiency());
   }
   return 0;
-}
-
-void positionTrack ( int input[] ) {
-  positionTracker(0.0, 0.0, 0.0);
 }
