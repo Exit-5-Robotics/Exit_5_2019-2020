@@ -37,21 +37,19 @@ void back( int side );
 void front(int side );
 void centerBlock();
 
-void drive( int degL, int degR, int left, int right ) {
-  LeftDrive.spinFor(directionType::fwd, degL, rotationUnits::deg, left, velocityUnits::pct);
-  RightDrive.spinFor(directionType::fwd, degR, rotationUnits::deg, right, velocityUnits::pct);
-}
-
 void pre_auton( void ) {
   // DO NOT REMOVE!
   vexcodeInit();
 }
 
 void autonomous( void ) {
+  double xPos = 0, yPos = 0, zPos = 0;
+  positionTracker(BANGLE);
+  goTo(xPos/360, yPos, zPos, 12, 0, 0, 0);
   // ArmL.spin(reverse);
   // ArmR.spin(reverse);
-  Drivetrain.driveFor(directionType::fwd, 15, inches, 80, velocityUnits::pct);
-  Drivetrain.driveFor(directionType::rev, 15, inches, 80, velocityUnits::pct);
+  // Drivetrain.driveFor(directionType::fwd, 15, inches, 80, velocityUnits::pct);
+  // Drivetrain.driveFor(directionType::rev, 15, inches, 80, velocityUnits::pct);
   // ArmL.spinFor(directionType::fwd, 400, rotationUnits::deg, 100, velocityUnits::pct, false);
   // ArmR.spinFor(directionType::fwd, 400, rotationUnits::deg, 100, velocityUnits::pct, false);
   // Tilter.spinFor(directionType::fwd, 100, rotationUnits::deg, 100, velocityUnits::pct);
@@ -68,9 +66,8 @@ void autonomous( void ) {
 }
 
 void usercontrol( void ) {
-  //vision
-  Controller1.ButtonY.released(centerBlock);
-  positionTracker(RANGLE);
+  // goTo();
+  // 
 }
 
 int main() {
@@ -81,6 +78,10 @@ int main() {
     wait(100, msec);
   }
 }
+
+
+
+
 
 
 // MODULAR FUNCTIONS BELOW | MODULAR FUNCTIONS BELOW | MODULAR FUNCTIONS BELOW | MODULAR FUNCTIONS BELOW
@@ -118,80 +119,4 @@ void back ( int side ) {
     LeftDrive.spinFor(directionType::rev, 20, rotationUnits::deg);
     RightDrive.spinFor(directionType::rev, 20, rotationUnits::deg);
   }
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-void centerBlock( void ) {
-  int count = 0;
-    float k;
-    double base;
-    int error;
-    double speedHDrive;
-    int ideal;
-    ideal=158;
-    int centerpoint;
-    centerpoint=Vision.largestObject.originX+Vision.largestObject.width/2;
-    int distance;
-    distance = abs(centerpoint-ideal);
-
-
-    while(distance > 5){ //can change ideal width
-      //Tell the vision sensor to capture a frame and look objects of the color stored in SIG_ORANGE.     
-      Vision.takeSnapshot(SIG_ORANGE);
-      //  Vision.takeSnapshot(SIG_PURPLE);
-      //  Vision.takeSnapshot(SIG_GREEN);
-      //If it detects at least one object with the color stored in SIG_ORANGE...
-      if(Vision.largestObject.exists){
-        Brain.Screen.clearScreen();
-        Brain.Screen.setOrigin(1,1);
-        Brain.Screen.drawRectangle(0,0,316,212);
-
-        Brain.Screen.print("distance: %d", distance);
-        Brain.Screen.newLine();
-        Brain.Screen.print("speed: %d", acos(-1));
-        Brain.Screen.newLine();
-        Brain.Screen.print("reps: %d", count);
-      //...draw a rectangle of equal size on the V5 Screen
-      Brain.Screen.drawRectangle(Vision.largestObject.originX,Vision.largestObject.originY, Vision.largestObject.width,Vision.largestObject.height,color::orange);
-
-      centerpoint=Vision.largestObject.originX+Vision.largestObject.width/2;
-
-      k = .2; //can change value of k
-      error = (centerpoint-ideal);
-      distance = abs(error);
-
-      if (error > 0){
-        base = 1;
-      } else {
-        base = -1;
-      }
-      if (distance < 20){
-        speedHDrive = error*k*.2;
-      } else {
-        speedHDrive = error*k*.6;
-      }
-      MiddleWheel.setVelocity(speedHDrive, percent);
-      MiddleWheel.spin(forward);
-      
-      count += 1;
-    }
-    task::sleep(200);
-  } 
-    MiddleWheel.stop();
 }
