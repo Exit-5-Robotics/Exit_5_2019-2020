@@ -118,9 +118,10 @@ int rc_auto_loop_callback_Controller1() {
     }
     // Up/Down buttons control Arms
     if (Controller1.ButtonL1.pressing()) {
+      ArmsNeedStop = false;
       ArmL.spin(vex::directionType::fwd, 50, vex::velocityUnits::pct);
       ArmR.spin(vex::directionType::fwd, 50, vex::velocityUnits::pct);
-      ArmsNeedStop = false;
+      Tilter.spinFor(vex::directionType::fwd, 600, vex::rotationUnits::deg, 30, vex::velocityUnits::pct, false);
     } else if (Controller1.ButtonL2.pressing()) {
       ArmL.spin(vex::directionType::rev, 50, vex::velocityUnits::pct);
       ArmR.spin(vex::directionType::rev, 50, vex::velocityUnits::pct);
@@ -147,13 +148,15 @@ int rc_auto_loop_callback_Controller1() {
     }
     //X/B for Tilter
     if (Controller1.ButtonX.pressing()) {
-      Tilter.spin(vex::directionType::fwd, 10, vex::velocityUnits::pct);
-      vex::task::sleep(2000);
-      IntakeL.spin(vex::directionType::rev, 5, vex::velocityUnits::pct);
-      IntakeR.spin(vex::directionType::rev, 5, vex::velocityUnits::pct);
       TilterNeedsStop = false;
+      Tilter.spin(vex::directionType::fwd, 30, vex::velocityUnits::pct);
+      vex::task::sleep(4000);
+      IntakeL.spin(vex::directionType::fwd, 5, vex::velocityUnits::pct);
+      IntakeR.spin(vex::directionType::fwd, 5, vex::velocityUnits::pct);
     } else if (Controller1.ButtonB.pressing()) {
-      Tilter.spin(vex::directionType::rev, 40, vex::velocityUnits::pct);
+      Tilter.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
+      IntakeL.spin(vex::directionType::rev, 10, vex::velocityUnits::pct);
+      IntakeR.spin(vex::directionType::rev, 10, vex::velocityUnits::pct);
       TilterNeedsStop = false;
     } else if (!TilterNeedsStop) {
       Tilter.stop(vex::brakeType::brake);
@@ -161,17 +164,12 @@ int rc_auto_loop_callback_Controller1() {
       IntakeR.stop(brakeType::brake);
       TilterNeedsStop = true;
     }
+    if (Controller1.ButtonY.pressing()) {
+      centerBlock();
+    }
 
     // wait before repeating the process
     wait(20, msec);
-    Brain.Screen.clearScreen();
-    int effL = LeftDrive.efficiency();
-    int lmao = LeftDrive.current();
-    int hh = LeftDrive.position(deg);
-    int hhh = RightDrive.position(deg);
-    int lao = LeftDrive.current() - LeftDrive.efficiency();
-    Brain.Screen.setCursor(5, 5);
-    // Brain.Screen.print("%d %d %d %d", hh, hhh, DriveSpeed, lao);
   }
   return 0;
 }
