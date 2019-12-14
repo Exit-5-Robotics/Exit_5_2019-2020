@@ -150,9 +150,10 @@ int rc_auto_loop_callback_Controller1() {
     if (Controller1.ButtonX.pressing()) {
       TilterNeedsStop = false;
       Tilter.spin(vex::directionType::fwd, 30, vex::velocityUnits::pct);
-      vex::task::sleep(4000);
-      IntakeL.spin(vex::directionType::fwd, 5, vex::velocityUnits::pct);
-      IntakeR.spin(vex::directionType::fwd, 5, vex::velocityUnits::pct);
+    if (Tilter.position(deg) >= 1000) {        
+        IntakeL.spin(vex::directionType::fwd, 5, vex::velocityUnits::pct);
+        IntakeR.spin(vex::directionType::fwd, 5, vex::velocityUnits::pct);
+      }
     } else if (Controller1.ButtonB.pressing()) {
       Tilter.spin(vex::directionType::rev, 80, vex::velocityUnits::pct);
       IntakeL.spin(vex::directionType::rev, 10, vex::velocityUnits::pct);
