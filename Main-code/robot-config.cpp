@@ -18,6 +18,7 @@ motor IntakeR = motor(PORT10, ratio18_1, true);
 motor MiddleWheel = motor(PORT13, ratio18_1, true);
 motor ArmL = motor(PORT3, ratio18_1, true);
 motor ArmR = motor(PORT4, ratio18_1, false);
+vex::inertial    Inertial( vex::PORT2 );
 
 // VEXcode generated functions
 // define variables used for controlling drive based on controller inputs
