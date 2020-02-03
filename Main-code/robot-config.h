@@ -23,6 +23,7 @@ extern signature SIG_5;
 extern signature SIG_6;
 extern signature SIG_7;
 extern vision Vision;
+extern inertial Inertial;
 
 /**
  * Used to initialize code/tasks/devices added using tools in VEXcode Text.
